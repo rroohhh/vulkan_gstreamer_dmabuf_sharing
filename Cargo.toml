@@ -1,0 +1,24 @@
+[package]
+name = "gst-vulkan-dma-buf-sharing"
+version = "0.1.0"
+authors = ["Robin Ole Heinemann <robin.ole.heinemann@t-online.de>"]
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+glib = { git = "https://github.com/gtk-rs/gtk-rs" } # , commit="f316f4025cde40953f2e47bcd58c8f400ca92bc7"}
+gstreamer = { package = "gstreamer", git = "https://gitlab.freedesktop.org/rroohhh/gstreamer-rs" }
+gstreamer-base = { package = "gstreamer-base", git = "https://gitlab.freedesktop.org/rroohhh/gstreamer-rs" }
+gstreamer-app = { package = "gstreamer-app", git = "https://gitlab.freedesktop.org/rroohhh/gstreamer-rs" }
+gstreamer-allocators = { package = "gstreamer-allocators", git = "https://gitlab.freedesktop.org/rroohhh/gstreamer-rs", features = ["v1_18"] }
+gstreamer-video = { package = "gstreamer-video", git = "https://gitlab.freedesktop.org/rroohhh/gstreamer-rs" }
+anyhow = "*"
+vulkano = { git = "https://github.com/apertus-open-source-cinema/vulkano", branch = "dma_buf_export" }
+vulkano-shaders = { git = "https://github.com/apertus-open-source-cinema/vulkano", branch = "dma_buf_export" }
+libc = "*"
+
+[patch.'https://github.com/gtk-rs/gtk-rs']
+glib = { git = "https://github.com/apertus-open-source-cinema/gtk-rs" }
+glib-sys = { git = "https://github.com/apertus-open-source-cinema/gtk-rs" }
+gobject-sys = { git = "https://github.com/apertus-open-source-cinema/gtk-rs" }

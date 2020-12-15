@@ -1,0 +1,5 @@
+/target
+test*
+perf.data
+perf.data.old
+*.svg
