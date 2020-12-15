@@ -157,16 +157,27 @@ fn main() -> Result<()> {
         let mut data_buffer = None;
 
         while let None = data_buffer {
+            let mut the_fd = None;
             for (i, buffer) in data_buffers.iter_mut().enumerate() {
                 unsafe {
                     let ret = libc::fstat(buffer.1, s.as_mut_ptr());
                     // println!("{} fd {} is {}",i,  buffer.1, ret);
                     if ret == -1 {
+                        the_fd = Some((i, buffer.1));
                         let fd =  buffer.0.leak_fd().unwrap();
                         println!("recycling {:?} {:?}", i, fd);
                         *buffer = (buffer.0.clone(), fd);
                         data_buffer = Some(buffer.clone());
                         break;
+                    }
+                }
+            }
+
+            if let Some((j, the_fd)) = the_fd {
+                for (i, buffer) in data_buffers.iter_mut().enumerate() {
+                    if (buffer.1 == the_fd) && (i != j) {
+                        println!("invalidating {}", buffer.1);
+                        buffer.1 = -1;
                     }
                 }
             }
